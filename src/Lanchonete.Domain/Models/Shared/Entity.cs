@@ -1,4 +1,3 @@
-using System;
 namespace Lanchonete.Domain.Models;
 
 public abstract class Entity
@@ -8,5 +7,5 @@ public abstract class Entity
         Id = Guid.NewGuid();
     }
 
-    public Guid Id { get; private set; }
+    public Guid Id { get; set; }
 }
