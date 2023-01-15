@@ -2,6 +2,10 @@ namespace Lanchonete.Domain.Models;
 
 public class Lanche : Entity
 {
+    public Lanche()
+    {
+    }
+
     public Lanche(string nome, string descricao, double preco)
     {
         Nome = nome.Trim();
@@ -14,6 +18,8 @@ public class Lanche : Entity
     public string Descricao { get; private set; }
     public double Preco { get; private set; }
     public bool Status { get; private set; }
+
+    public IList<Pedido> Pedidos { get; set; }
 
     public void Editar(string nome, string descricao, double preco)
     {
