@@ -6,8 +6,10 @@ public class Pedido : Entity
     {
         StatusPedido = StatusPedido.EmAndamento;
         Lanches = new List<Lanche>();
+        DataHora = DateTime.Now;
     }
 
+    public DateTime DataHora { get; private set; }
     public StatusPedido StatusPedido { get; private set; }
     public IList<Lanche> Lanches { get; private set; }
 

@@ -18,7 +18,7 @@ public class LancheMap : IEntityTypeConfiguration<Lanche>
         builder.Property(x => x.Descricao)
                         .HasColumnType("varchar(200)");
 
-        builder.Property(x => x.Descricao)
+        builder.Property(x => x.Preco)
                         .IsRequired()
                         .HasColumnType("DECIMAL");
 
