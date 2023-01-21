@@ -10,6 +10,10 @@ public class PedidoMap : IEntityTypeConfiguration<Pedido>
     {
         builder.HasKey(x => x.Id);
 
+        builder.Property(x => x.DataHora)
+                    .IsRequired()
+                    .HasColumnType("DATETIME");
+
         builder.Property(x => x.StatusPedido)
                     .IsRequired()
                     .HasColumnType("INT");
