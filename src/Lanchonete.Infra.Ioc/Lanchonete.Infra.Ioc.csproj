@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Lanchonete.Domain\Lanchonete.Domain.csproj" />
     <ProjectReference Include="..\Lanchonete.Infra.Data\Lanchonete.Infra.Data.csproj" />
+    <ProjectReference Include="..\Lanchonete.Application\Lanchonete.Application.csproj" />
   </ItemGroup>
 
 </Project>
