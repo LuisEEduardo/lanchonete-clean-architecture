@@ -1,20 +1,34 @@
-namespace Lanchonete.Web.Api.Configuration
+using Lanchonete.Infra.Ioc;
+
+namespace Lanchonete.Web.Api.Configuration;
+
+public static class ApiConfig
 {
-    public static class ApiConfig
+    public static IServiceCollection AddApiConfig(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddApiConfig(this IServiceCollection services)
-        {
+        services.AddControllers();
 
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
 
-            return services;
-        }
+        services.RegisterServices(configuration);
 
-        public static IApplicationBuilder UseApiConfig(this IApplicationBuilder app, IWebHostEnvironment env)
-        {
-
-
-            return app;
-        }
-
+        return services;
     }
+
+    public static IApplicationBuilder UseApiConfig(this IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+
+        app.UseHttpsRedirection();
+
+        app.UseAuthorization();
+
+        return app;
+    }
+
 }
