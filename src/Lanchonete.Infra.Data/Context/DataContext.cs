@@ -12,6 +12,8 @@ public class DataContext : DbContext
     public DataContext(DbContextOptions<DataContext> options)
         : base(options)
     {
+        ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        ChangeTracker.AutoDetectChangesEnabled = false;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
