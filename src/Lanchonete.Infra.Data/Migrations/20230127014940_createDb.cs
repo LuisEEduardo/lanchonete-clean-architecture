@@ -43,30 +43,36 @@ namespace Lanchonete.Infra.Data.Migrations
                 name: "LanchePedido",
                 columns: table => new
                 {
-                    LanchesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PedidosId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LancheId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PedidoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LanchePedido", x => new { x.LanchesId, x.PedidosId });
+                    table.PrimaryKey("PK_LanchePedido", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LanchePedido_Lanches_LanchesId",
-                        column: x => x.LanchesId,
+                        name: "FK_LanchePedido_Lanches_LancheId",
+                        column: x => x.LancheId,
                         principalTable: "Lanches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_LanchePedido_Pedidos_PedidosId",
-                        column: x => x.PedidosId,
+                        name: "FK_LanchePedido_Pedidos_PedidoId",
+                        column: x => x.PedidoId,
                         principalTable: "Pedidos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_LanchePedido_PedidosId",
+                name: "IX_LanchePedido_LancheId",
                 table: "LanchePedido",
-                column: "PedidosId");
+                column: "LancheId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LanchePedido_PedidoId",
+                table: "LanchePedido",
+                column: "PedidoId");
         }
 
         /// <inheritdoc />
