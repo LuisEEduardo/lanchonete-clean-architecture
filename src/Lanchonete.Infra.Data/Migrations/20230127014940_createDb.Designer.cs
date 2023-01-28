@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lanchonete.Infra.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230126014913_createDb")]
+    [Migration("20230127014940_createDb")]
     partial class createDb
     {
         /// <inheritdoc />
@@ -24,21 +24,6 @@ namespace Lanchonete.Infra.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("LanchePedido", b =>
-                {
-                    b.Property<Guid>("LanchesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PedidosId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("LanchesId", "PedidosId");
-
-                    b.HasIndex("PedidosId");
-
-                    b.ToTable("LanchePedido", (string)null);
-                });
 
             modelBuilder.Entity("Lanchonete.Domain.Models.Lanche", b =>
                 {
@@ -65,6 +50,27 @@ namespace Lanchonete.Infra.Data.Migrations
                     b.ToTable("Lanches", (string)null);
                 });
 
+            modelBuilder.Entity("Lanchonete.Domain.Models.LanchePedido", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("LancheId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PedidoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LancheId");
+
+                    b.HasIndex("PedidoId");
+
+                    b.ToTable("LanchePedido");
+                });
+
             modelBuilder.Entity("Lanchonete.Domain.Models.Pedido", b =>
                 {
                     b.Property<Guid>("Id")
@@ -82,19 +88,33 @@ namespace Lanchonete.Infra.Data.Migrations
                     b.ToTable("Pedidos");
                 });
 
-            modelBuilder.Entity("LanchePedido", b =>
+            modelBuilder.Entity("Lanchonete.Domain.Models.LanchePedido", b =>
                 {
-                    b.HasOne("Lanchonete.Domain.Models.Lanche", null)
-                        .WithMany()
-                        .HasForeignKey("LanchesId")
+                    b.HasOne("Lanchonete.Domain.Models.Lanche", "Lanche")
+                        .WithMany("Pedidos")
+                        .HasForeignKey("LancheId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Lanchonete.Domain.Models.Pedido", null)
-                        .WithMany()
-                        .HasForeignKey("PedidosId")
+                    b.HasOne("Lanchonete.Domain.Models.Pedido", "Pedido")
+                        .WithMany("Lanches")
+                        .HasForeignKey("PedidoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Lanche");
+
+                    b.Navigation("Pedido");
+                });
+
+            modelBuilder.Entity("Lanchonete.Domain.Models.Lanche", b =>
+                {
+                    b.Navigation("Pedidos");
+                });
+
+            modelBuilder.Entity("Lanchonete.Domain.Models.Pedido", b =>
+                {
+                    b.Navigation("Lanches");
                 });
 #pragma warning restore 612, 618
         }

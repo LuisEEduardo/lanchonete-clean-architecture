@@ -27,8 +27,10 @@ namespace Lanchonete.Infra.Ioc
 
             services.AddScoped<ILancheRepository, LancheRepository>();
             services.AddScoped<IPedidoRepository, PedidoRepository>();
+            services.AddScoped<ILanchePedidoRepository, LanchePedidoRepository>();
 
             services.AddScoped<ILancheApplication, LancheApplication>();
+            services.AddScoped<IPedidoApplication, PedidoApplication>();
 
             return services;
         }

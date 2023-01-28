@@ -8,9 +8,9 @@ namespace Lanchonete.Infra.Data.Repositories.Shared;
 public class BaseRepository<T> : IBaseRepository<T> where T : Entity, new()
 {
     private readonly DataContext _context;
-    private readonly DbSet<T> _dbSet;
+    protected readonly DbSet<T> _dbSet;
 
-    public BaseRepository(DataContext context)
+    protected BaseRepository(DataContext context)
     {
         _context = context;
         _dbSet = context.Set<T>();
@@ -19,6 +19,13 @@ public class BaseRepository<T> : IBaseRepository<T> where T : Entity, new()
     public async Task Post(T entity)
     {
         _dbSet.Add(entity);
+        await SaveChanges();
+    }
+
+
+    public async Task PostRange(IList<T> entities)
+    {
+        _dbSet.AddRange(entities);
         await SaveChanges();
     }
 

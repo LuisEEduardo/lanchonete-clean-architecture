@@ -18,9 +18,9 @@ public class PedidoMap : IEntityTypeConfiguration<Pedido>
                     .IsRequired()
                     .HasColumnType("INT");
 
-        builder
-            .HasMany(x => x.Lanches)
-            .WithMany(x => x.Pedidos)
-            .UsingEntity(x => x.ToTable("LanchePedido"));
+        // builder
+        //     .HasMany(x => x.Lanches)
+        //     .WithMany(x => x.Pedidos)
+        //     .UsingEntity(x => x.ToTable("LanchePedido"));
     }
 }

@@ -1,4 +1,5 @@
 using Lanchonete.Infra.Ioc;
+using Lanchonete.Web.Api.Extensions;
 
 namespace Lanchonete.Web.Api.Configuration;
 
@@ -23,6 +24,8 @@ public static class ApiConfig
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseMiddleware<ExceptionMiddleware>();
 
         app.UseHttpsRedirection();
 
